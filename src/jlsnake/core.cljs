@@ -18,14 +18,16 @@
    [:div {:style {:width            (* size unit-in-pixels)
                   :height           (* size unit-in-pixels)
                   :background-color "#ebebeb"}}]
-   [:div {:style {
-                  :background-color "black"
-                  :width            unit-in-pixels
-                  :height           unit-in-pixels
-                  :left             (* (nth (nth (:snake @app-state) 0) 0) unit-in-pixels)
-                  :top              (* (nth (nth (:snake @app-state) 0) 1) unit-in-pixels)
-                  :position         "absolute"
-                  }}]
+   (map (fn [[x y]]
+          [:div {:style {
+                         :background-color "black"
+                         :width            unit-in-pixels
+                         :height           unit-in-pixels
+                         :left             (* x unit-in-pixels)
+                         :top              (* y unit-in-pixels)
+                         :position         "absolute"
+                         }}]
+          ) (:snake @app-state))
    ])
 
 (reagent/render-component [hello-world]
