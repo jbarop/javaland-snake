@@ -8,7 +8,8 @@
 ;; define your app data so that it doesn't get over-written on reload
 
 (defonce app-state (atom {:text "Hello world!"
-                          :snake [[1 1] [2 2] [3 3]]
+                          :snake [[16 15] [17 15] [18 15]]
+                          :direction [-1 0]
                           }))
 
 (def size 25)
@@ -32,9 +33,26 @@
           ) (:snake @app-state))
    ])
 
+(defn next-pos [state]
+  (map
+    (fn [pos dir]
+      (mod (+ pos dir) size)
+    )
+    (first (:snake state))
+    (:direction state)
+  )
+)
+
 (defn update-state [state]
   (println state)
-  state
+  (assoc
+    state
+    :snake
+    (cons
+      (next-pos state)
+      (butlast (:snake state))
+    )
+  )
 )
 
 (defn game-loop []
