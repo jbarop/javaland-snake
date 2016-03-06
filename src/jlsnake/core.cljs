@@ -18,7 +18,7 @@
    [:div {:style {:width            (* size unit-in-pixels)
                   :height           (* size unit-in-pixels)
                   :background-color "#ebebeb"}}]
-   (map (fn [[x y]]
+   (map-indexed (fn [i [x y]]
           [:div {:style {
                          :background-color "black"
                          :width            unit-in-pixels
@@ -26,7 +26,9 @@
                          :left             (* x unit-in-pixels)
                          :top              (* y unit-in-pixels)
                          :position         "absolute"
-                         }}]
+                         }
+                 :key i
+                 }]
           ) (:snake @app-state))
    ])
 
