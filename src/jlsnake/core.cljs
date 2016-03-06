@@ -32,6 +32,16 @@
           ) (:snake @app-state))
    ])
 
+(defn update-state [state]
+  (println state)
+  state
+)
+
+(defn game-loop []
+  (swap! app-state update-state)
+  (js/setTimeout game-loop 2000)
+)
+
 (reagent/render-component [hello-world]
                           (. js/document (getElementById "app")))
 
@@ -41,3 +51,5 @@
   ;; your application
   ;; (swap! app-state update-in [:__figwheel_counter] inc)
 )
+
+(game-loop)
