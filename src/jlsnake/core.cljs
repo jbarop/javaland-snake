@@ -7,7 +7,9 @@
 
 ;; define your app data so that it doesn't get over-written on reload
 
-(defonce app-state (atom {:text "Hello world!"}))
+(defonce app-state (atom {:text "Hello world!"
+                          :snake [[1 1] [2 2] [3 3]]
+                          }))
 
 (def size 25)
 (def unit-in-pixels 20)
@@ -20,8 +22,8 @@
                   :background-color "black"
                   :width            unit-in-pixels
                   :height           unit-in-pixels
-                  :left             (* 1 unit-in-pixels)
-                  :top              (* 1 unit-in-pixels)
+                  :left             (* (nth (nth (:snake @app-state) 0) 0) unit-in-pixels)
+                  :top              (* (nth (nth (:snake @app-state) 0) 1) unit-in-pixels)
                   :position         "absolute"
                   }}]
    ])
