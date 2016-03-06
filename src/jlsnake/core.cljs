@@ -16,6 +16,14 @@
    [:div {:style {:width            (* size unit-in-pixels)
                   :height           (* size unit-in-pixels)
                   :background-color "#ebebeb"}}]
+   [:div {:style {
+                  :background-color "black"
+                  :width            unit-in-pixels
+                  :height           unit-in-pixels
+                  :left             (* 1 unit-in-pixels)
+                  :top              (* 1 unit-in-pixels)
+                  :position         "absolute"
+                  }}]
    ])
 
 (reagent/render-component [hello-world]
