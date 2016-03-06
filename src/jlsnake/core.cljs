@@ -9,8 +9,14 @@
 
 (defonce app-state (atom {:text "Hello world!"}))
 
+(def size 25)
+(def unit-in-pixels 20)
 (defn hello-world []
-  [:h1 "Hallo Javaland"])
+  [:div
+   [:div {:style {:width            (* size unit-in-pixels)
+                  :height           (* size unit-in-pixels)
+                  :background-color "#ebebeb"}}]
+   ])
 
 (reagent/render-component [hello-world]
                           (. js/document (getElementById "app")))
