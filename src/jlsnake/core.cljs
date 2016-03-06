@@ -1,5 +1,9 @@
 (ns jlsnake.core
-  (:require [reagent.core :as reagent :refer [atom]]))
+  (:require [reagent.core :as reagent :refer [atom]]
+            [goog.events :as events])
+  (:import [goog.events KeyHandler]
+           [goog.events.KeyHandler EventType])
+)
 
 (enable-console-print!)
 
@@ -55,6 +59,23 @@
   )
 )
 
+(defn listen-to-arrow-keys []
+  (events/listen
+    (KeyHandler. js/document)
+    EventType.KEY
+    (fn [event]
+      (swap! app-state assoc :direction (case (.-keyCode event)
+                                          37 [-1 0]
+                                          38 [0 -1]
+                                          39 [1 0]
+                                          40 [0 1]
+                                          (:direction @app-state)
+                                        )
+      )
+    )
+  )
+)
+
 (defn game-loop []
   (swap! app-state update-state)
   (js/setTimeout game-loop 2000)
@@ -70,4 +91,5 @@
   ;; (swap! app-state update-in [:__figwheel_counter] inc)
 )
 
+(defonce key-listener (listen-to-arrow-keys))
 (game-loop)
